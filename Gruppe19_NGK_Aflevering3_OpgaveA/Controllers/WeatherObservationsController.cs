@@ -53,7 +53,7 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
         }
 
         // GET: api/WeatherObservations
-        [HttpGet("/BetweenDate")]
+        [HttpGet("/BetweenDates")]
         public async Task<ActionResult<IEnumerable<WeatherObservation>>> GetWeatherObservationBetweenDate(DateTime? startdate, DateTime? endDate)
         {
             if (startdate == null || endDate == null) return NotFound();
