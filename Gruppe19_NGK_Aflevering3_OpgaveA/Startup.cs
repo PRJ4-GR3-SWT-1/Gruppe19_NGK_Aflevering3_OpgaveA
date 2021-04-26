@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gruppe19_NGK_Aflevering3_OpgaveA
 {
@@ -32,6 +33,9 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gruppe19_NGK_Aflevering3_OpgaveA", Version = "v1" });
             });
+
+            services.AddDbContext<MyDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
