@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gruppe19_NGK_Aflevering3_OpgaveA</name>
+    </assembly>
+    <members>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.AccountController.Register(Gruppe19_NGK_Aflevering3_OpgaveA.Models.UserDto)">
+            <summary>
+            Register a user
+            </summary>
+            <param name="regUser">FullName, Email and Password </param>
+            <returns> returns whether or not the user is registered</returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.AccountController.Get(System.Int32)">
+            <summary>
+            Get user with id
+            </summary>
+            <param name="id">The id for the user</param>
+            <returns> Returns the user with the given id </returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.AccountController.Login(Gruppe19_NGK_Aflevering3_OpgaveA.Models.UserDto)">
+            <summary>
+            Logs in the user
+            </summary>
+            <param name="login"> The Email and Password for the user</param>
+            <returns> Returns a JWT if the login was successfull</returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.WeatherObservationsController.GetWeatherObservation">
+            <summary>
+            Get all weatherobservations
+            </summary>
+            <returns> Array of all weatherobservation in JSON format</returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.WeatherObservationsController.GetLastThreeWeatherObservation">
+            <summary>
+            Gets the 3 newly added weatherobservations
+            </summary>
+            <returns> Returns the 3 latest weatherobservations in JSON format </returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.WeatherObservationsController.GetWeatherObservationByDate(System.Nullable{System.DateTime})">
+            <summary>
+            Returns weatherobservations by the date
+            </summary>
+            <param name="date"> The date with form YYYY-MM-DD</param>
+            <returns> The weather observations from the date </returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.WeatherObservationsController.GetWeatherObservationBetweenDate(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Returns the weatherobservations between the 2 supplied dates
+            </summary>
+            <param name="startdate"> Startdate with form YYYY-MM-DD</param>
+            <param name="endDate"> Enddate with form YYYY-MM-DD</param>
+            <returns> Returns array of weatherobservations in JSON format </returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.WeatherObservationsController.GetWeatherObservation(System.Int32)">
+            <summary>
+            Returns weatherobservation by id
+            </summary>
+            <param name="id"> The id for the weatherobservation</param>
+            <returns> The weatherobservation with the give id </returns>
+        </member>
+        <member name="M:Gruppe19_NGK_Aflevering3_OpgaveA.Controllers.WeatherObservationsController.PostWeatherObservation(Gruppe19_NGK_Aflevering3_OpgaveA.Models.WeatherObservation)">
+            <summary>
+            Adds a weatherobservation, if the user is authorized
+            </summary>
+            <param name="weatherObservation"> Object corresponding to the weatherobservation class</param>
+            <returns> The added observation if the data corresponds to the weatherobservation class</returns>
+        </member>
+    </members>
+</doc>

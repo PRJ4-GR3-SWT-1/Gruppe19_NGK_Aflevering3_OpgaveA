@@ -13,6 +13,8 @@ using Gruppe19_NGK_Aflevering3_OpgaveA.Models;
         }
 
         public DbSet<Gruppe19_NGK_Aflevering3_OpgaveA.Models.WeatherObservation> WeatherObservation { get; set; }
+
+        public DbSet<Gruppe19_NGK_Aflevering3_OpgaveA.Models.User> User { get; set; }
     }
 
 public interface IMyDbContext
