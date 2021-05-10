@@ -70,9 +70,8 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
             {
                 return NotFound();
             }
-            var userDto = new UserDto();
-            userDto.Email = user.Email;
-            userDto.FullName = user.FullName;
+
+            var userDto = new UserDto {Email = user.Email, FullName = user.FullName};
             return userDto;
         }
         /// <summary>
@@ -91,8 +90,7 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
                 var validPwd = Verify(login.Password, user.PwHash);
                 if (validPwd)
                 {
-                    var token = new TokenDto();
-                    token.JWT = GenerateToken(user);
+                    var token = new TokenDto {JWT = GenerateToken(user)};
                     return token;
                 }
 

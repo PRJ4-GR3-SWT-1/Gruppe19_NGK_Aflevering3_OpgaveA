@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Gruppe19_NGK_Aflevering3_OpgaveA.Models;
 
-    public class MyDbContext : DbContext, IMyDbContext
+    public class MyDbContext : DbContext
     {
         public MyDbContext (DbContextOptions<MyDbContext> options)
             : base(options)
@@ -17,7 +17,3 @@ using Gruppe19_NGK_Aflevering3_OpgaveA.Models;
         public DbSet<Gruppe19_NGK_Aflevering3_OpgaveA.Models.User> User { get; set; }
     }
 
-public interface IMyDbContext
-{
-
-}
