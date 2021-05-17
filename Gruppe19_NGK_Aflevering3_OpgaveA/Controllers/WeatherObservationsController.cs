@@ -155,8 +155,11 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
             _context.WeatherObservation.Add(weatherObservation);
             await _context.SaveChangesAsync();
 
-            string JSON = JsonSerializer.Serialize(weatherObservation);
-            await _WeatherObservationHubContext.Clients.All.SendAsync("SendObservation",JSON);
+            if (_WeatherObservationHubContext != null)
+            {
+                string JSON = JsonSerializer.Serialize(weatherObservation);
+                await _WeatherObservationHubContext.Clients.All.SendAsync("SendObservation", JSON);
+            }
 
             return CreatedAtAction("GetWeatherObservation", new { id = weatherObservation.WeatherObservationId }, weatherObservation);
         }
