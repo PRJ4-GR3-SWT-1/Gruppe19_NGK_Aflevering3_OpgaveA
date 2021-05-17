@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<!-- Start the server with F5 or ctrl-F5. Then open this file in another browser (or tab)
+with this url: https://localhost:44331/index.html -->
+<head>
+    <meta charset="utf-8" />
+    <title>WeatherObservation Server</title>
+</head>
+<body>
+<h1>WeatherObservation Server</h1>
+<p>GREETINGS TRAVELLERS. The systems weather observations will arrive here every time observations are posted</p>
+<hr />
+<h3>Live WeatherObservations</h3>
+<a href="/swagger/index.html" style="font-size: 30pt;" target="blank">Swagger</a>
+<ul id="messagesList"></ul>
+<script src="https://unpkg.com/@microsoft/signalr@3.0.1/dist/browser/signalr.js" crossorigin="anonymous"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/WeatherObservationHub").build();
+
+    connection.on("SendObservation", function (message) {
+        var Prettystr = JSON.stringify(JSON.parse(message), null, 2);
+        var encodedMsg = Prettystr;
+        var p = document.createElement("pre");
+        p.textContent = encodedMsg;
+        document.getElementById("messagesList").appendChild(p);
+        var breakHr = document.createElement("hr");
+        document.getElementById("messagesList").appendChild(breakHr);
+    });
+
+
+    connection.start().then(function () {
+        console.log("Connected");
+    }).catch(function (err) {
+        console.error(err.toString());
+    });
+</script>
+</body>
+</html>

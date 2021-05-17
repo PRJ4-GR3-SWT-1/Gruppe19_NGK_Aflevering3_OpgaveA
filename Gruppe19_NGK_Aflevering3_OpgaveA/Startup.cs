@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Gruppe19_NGK_Aflevering3_OpgaveA.Data;
+using Gruppe19_NGK_Aflevering3_OpgaveA.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -71,7 +72,7 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA
                 c.AddSecurityRequirement(securityRequirements);
             });
 
-
+            services.AddSignalR();
 
             services.AddDbContext<MyDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyDbContext")));
@@ -117,11 +118,13 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseStaticFiles();
 
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<WeatherObservationHub>("/WeatherObservationHub");
             });
         }
     }

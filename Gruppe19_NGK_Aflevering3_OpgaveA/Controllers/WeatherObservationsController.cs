@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Gruppe19_NGK_Aflevering3_OpgaveA.Hubs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Gruppe19_NGK_Aflevering3_OpgaveA.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
 {
@@ -14,11 +17,13 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
     [ApiController]
     public class WeatherObservationsController : ControllerBase
     {
+        private readonly IHubContext<WeatherObservationHub> _WeatherObservationHubContext;
         private readonly MyDbContext _context;
 
-        public WeatherObservationsController(MyDbContext context)
+        public WeatherObservationsController(MyDbContext context, IHubContext<WeatherObservationHub> hub)
         {
             _context = context;
+            _WeatherObservationHubContext = hub;
         }
         /// <summary>
         /// Get all weatherobservations
@@ -149,6 +154,9 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
         {
             _context.WeatherObservation.Add(weatherObservation);
             await _context.SaveChangesAsync();
+
+            string JSON = JsonSerializer.Serialize(weatherObservation);
+            await _WeatherObservationHubContext.Clients.All.SendAsync("SendObservation",JSON);
 
             return CreatedAtAction("GetWeatherObservation", new { id = weatherObservation.WeatherObservationId }, weatherObservation);
         }

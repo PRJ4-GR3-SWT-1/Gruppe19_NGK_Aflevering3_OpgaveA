@@ -6,6 +6,66 @@
 	},
 	"item": [
 		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Username needs to be unique with every test. Or just remove the Register from the test.\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Content-Type header is application/json and charset=utf-8\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains correct data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.fullName).to.eql(\"John Doe\");\r",
+							"    pm.expect(jsonData.password).to.eql(\"password\");\r",
+							"});\r",
+							"pm.test(\"Body contains correct email format\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"unknown@person\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FullName\" : \"John Doe\",\r\n    \"Email\" : \"Unknown@Person.dk\",\r\n    \"Password\" : \"password\"\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44313/api/Account/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44313",
+					"path": [
+						"api",
+						"Account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Login",
 			"event": [
 				{
@@ -17,7 +77,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Content-Type header is application/json\", () => {\r",
-							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;charset=utf-8');\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
@@ -72,10 +132,12 @@
 							"pm.test(\"Response time is less than 500ms\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 							"});\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
 							"});\r",
-							"\r",
+							"pm.test(\"Content-Type header is application/json and charset=utf-8\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
 							""
 						],
 						"type": "text/javascript"
@@ -133,6 +195,10 @@
 							"        pm.expect(jsonData.length).to.eql(3);\r",
 							"    });\r",
 							"\r",
+							"    pm.test(\"Content-Type header is application/json and charset=utf-8\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
 							""
 						],
 						"type": "text/javascript"
@@ -183,7 +249,10 @@
 							"pm.test(\"Body matches string\", function () {\r",
 							"    pm.expect(pm.response.text()).to.include(\"2025-05-10\");\r",
 							"});\r",
-							""
+							"\r",
+							"pm.test(\"Content-Type header is application/json and charset=utf-8\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -214,33 +283,86 @@
 		},
 		{
 			"name": "GetBetweenDates",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Get last Obersvation is correct\", function () {\r",
+							"        var jsonData = pm.response.json();\r",
+							"        pm.expect(jsonData[0].location.name).to.eql(\"Roskilde\");\r",
+							"    });\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"2025-05-10\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json and charset=utf-8\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://localhost:44313/BetweenDates?startDate=2025-05-09&endDate=2025-05-11",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44313",
+					"path": [
+						"BetweenDates"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2025-05-09"
+						},
+						{
+							"key": "endDate",
+							"value": "2025-05-11"
+						}
+					]
 				}
 			},
 			"response": []
 		},
 		{
 			"name": "Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type header is application/json and charset=utf-8\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Register",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:44313/api/Account/register",
+					"raw": "https://localhost:44313/api/WeatherObservations",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -248,8 +370,7 @@
 					"port": "44313",
 					"path": [
 						"api",
-						"Account",
-						"register"
+						"WeatherObservations"
 					]
 				}
 			},
