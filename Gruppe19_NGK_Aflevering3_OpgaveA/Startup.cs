@@ -76,7 +76,7 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA
 
             services.AddDbContext<MyDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyDbContext")));
-
+            
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 

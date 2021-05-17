@@ -25,7 +25,7 @@ namespace WeatherObs.XUnitTest
 
             dbcontext = new MyDbContext(options);
 
-            uut = new WeatherObservationsController(dbcontext);
+            uut = new WeatherObservationsController(dbcontext,null);
         }
 
 

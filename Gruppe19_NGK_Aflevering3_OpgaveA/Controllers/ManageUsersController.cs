@@ -18,6 +18,7 @@ namespace Gruppe19_NGK_Aflevering3_OpgaveA.Controllers
         public ManageUsersController(MyDbContext context)
         {
             _context = context;
+            context.Database.EnsureCreated();
         }
 
         // GET: api/ManageUsers
